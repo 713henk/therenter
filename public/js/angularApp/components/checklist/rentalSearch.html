@@ -1,0 +1,317 @@
+<header class="w3-display-container w3-opacity-min top" id="rentalSearch_head">
+    <span class="titles w3-padding-large w3-black w3-xlarge w3-wide">צפה בצ'ק ליסט</span>
+</header>
+<div class="w3-container" dir="rtl" ng-show="!isWaitingForm && !user.isLoggedIn()" ng-controller="HomeController as vm" ng-cloak>
+    <div class="registration w3-row-padding w3-container w3-center intro_section">
+        <div class="registration_c ">
+            <h1>הרשמה לאתר</h1>
+            <p>
+                התחבר לאתר בכדי לצפות בצ'ק ליסט<br>
+            </p>
+            <div class="w3-row">
+                <md-checkbox ng-model="terms" ng-show="!user.isLoggedIn()" aria-label="Checkbox Terms">
+                    אני מאשר את
+                </md-checkbox>
+                <a href="" ng-show="!user.isLoggedIn()" ng-click="vm.showAdvanced($event, 'terms')"> תקנון השימוש</a>
+            </div>
+            <md-button class="md-primary md-raised w3-center" ng-show="!user.isLoggedIn()" data-ng-disabled="!terms" data-ng-click="vm.IntentLogin()">התחבר עם פייסבוק</md-button>
+        </div>
+    </div>
+</div>
+<div class="w3-container" dir="rtl" ng-show="user.isLoggedIn()" ng-init="loadAllCities()" ng-cloak>
+    <!--rentalSearch-->
+    <div class="w3-row rentalSearch">
+        <div class="w3-third" id="instructions" hide-xs>
+            <md-content flex layout-padding>
+                <p>
+                    1. &nbsp&nbsp הכנס כתובת<br/> 2. &nbsp&nbsp חפש.<br/> 3. &nbsp&nbsp צפה בבצ'ק ליסט העדכני<br/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ביותר לדירה שמעניינת אותך<br/>
+                </p>
+            </md-content>
+        </div>
+        <form class="form-horizontal w3-center w3-twothird the_renter_form" dir="rtl" ng-init="loadAllCities()" ng-submit="searchRentalForm($event)" name="searchForm" role="form" id="rentalForm" novalidate>
+            <!--<div class="w3-container w3-row" id="address">-->
+            <div class="form_section" id="address">
+                <h4 class="w3-right">כתובת</h4>
+                <div class="w3-row form_row" dir="rtl">
+                    <div class="form-group w3-half w3-right required">
+                        <md-autocomplete required id="rentalCity" ng-disabled="isDisabled" class="form-control autocomplete required" md-no-cache="true" md-dropdown-position="bottom" md-input-name="rentalCityField" md-selected-item="selectedRentalCity" md-search-text-change="searchCityTextChange(searchText)"
+                            md-search-text="searchText" md-selected-item-change="selectedCityChange(city, 'rental')" md-items="city in querySearchCities(searchText)" md-item-text="city.display" md-input-minlength="2" md-input-maxlength="18" md-require-match
+                            md-floating-label="בחר עיר" ng-focus="gotoElement('instructions')">
+                            <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{city.display}}</span>
+                            </md-item-template>
+                            <md-not-found>"{{searchText}}" לא נמצאה עיר המכילה את הביטוי</md-not-found>
+                            <div ng-messages="searchForm.rentalCityField.$error" ng-if="searchForm.rentalCityField.$touched">
+                                <div ng-message="required">שדה עיר הינו שדה <b>חובה</b></div>
+                                <div ng-message="md-require-match">אנא בחר עיר מתוך האפשרויות המוצעות</div>
+                                <div ng-message="minlength">הקלט קצר מידי</div>
+                                <div ng-message="maxlength">הקלט ארוך מידי</div>
+                            </div>
+                        </md-autocomplete>
+                    </div>
+                    <div class="form-group w3-half w3-right required">
+                        <md-autocomplete required id="rentalStreet" ng-disabled="isDisabledStreets" class="form-control autocomplete required" md-no-cache="true" md-dropdown-position="bottom" md-input-name="rentalStreetField" md-selected-item="selectedRentalStreet" md-search-text-change="searchStreetTextChange(searchStreetText)"
+                            md-search-text="searchStreetText" md-selected-item-change="selectedStreetChange(street, 'rental')" md-items="street in querySearchStreets(searchStreetText, 'rental')" md-item-text="street.display" md-input-minlength="2" md-input-maxlength="18"
+                            md-require-match md-floating-label="בחר רחוב" ng-focus="gotoElement('rentalCity')">
+                            <md-item-template>
+                                <span md-highlight-text="searchStreetText" md-highlight-flags="^i">{{street.display}}</span>
+                            </md-item-template>
+                            <md-not-found> לא נמצא רחוב המכיל את הביטוי "{{searchStreetText}}" </md-not-found>
+                            <div ng-messages="searchForm.rentalStreetField.$error" ng-if="searchForm.rentalStreetField.$touched">
+                                <div ng-message="required">שדה רחוב הינו שדה <b>חובה</b></div>
+                                <div ng-message="md-require-match">אנא בחר רחוב מתוך האפשרויות המוצעות</div>
+                                <div ng-message="minlength">הקלט קצר מידי</div>
+                                <div ng-message="maxlength">הקלט ארוך מידי</div>
+                            </div>
+                        </md-autocomplete>
+
+                    </div>
+                </div>
+
+                <div class="w3-row form_row w3-hide-small" dir="rtl">
+                    <md-content layout-padding>
+                        <div class="form-group w3-third">
+                            <md-input-container flex>
+                                <label for="apartmentNumber" class="control-label">מספר דירה</label>
+                                <!--<input type="number" id="apartmentNumber" class="md-block" ng-model="searchAddress.apartmentNumber" />-->
+                                <input name="rentalApartment" ng-pattern="/^[1-9]\d{0,2}$/" md-maxlength="3" id="apartmentNumber" class="form-control md-block" ng-model="apartmentNumber.apartmentNumber" />
+                                <div ng-messages="searchForm.rentalApartment.$error" ng-if="searchForm.rentalApartment.$touched">
+                                    <div ng-message="pattern">מספר דירה שגוי</div>
+                                    <div ng-message="maxlength">מספר דירה לא יכול להיות יותר מ-3 תווים.</div>
+
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="form-group w3-third">
+                            <md-input-container flex>
+                                <label for="floor" class="control-label">קומה</label>
+                                <!--<input type="number" id="floor" class="md-block" ng-model="searchAddress.floor" />-->
+                                <input name="rentalFloor" md-maxlength="3" id="floor" class="form-control md-block" ng-pattern="/(^0$)|(^[1-9]\d{0,2}$)/" ng-model="searchAddress.floor" />
+                                <div ng-messages="searchForm.rentalFloor.$error" ng-if="searchForm.rentalFloor.$touched">
+                                    <div ng-message="pattern">מספר קומה חייב להיות בין 0-3 תווים מספריים</div>
+                                    <div ng-message="maxlength">מספר קומה לא יכול להיות יותר מ-3 תווים.</div>
+
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <div class="form-group w3-third required">
+                            <md-input-container flex>
+                                <label for="streetNumber" class="control-label">מספר בית</label>
+                                <!--<input type="number" id="streetNumber" class="md-block" ng-model="searchAddress.streetNumber" />-->
+                                <input required id="streetNumber" name="rentalStreetNum" ng-model="searchAddress.streetNumber" md-maxlength="3" class="form-control md-block" ng-pattern="/^[1-9]\d{0,2}$/" />
+                                <div ng-messages="searchForm.rentalStreetNum.$error" ng-if="searchForm.rentalStreetNum.$touched" multiple>
+                                    <div ng-message="required">מספר בית הינו שדה <b>חובה</b></div>
+                                    <div ng-message="minlength">מספר בית חייב להכיל לפחות תו 1</div>
+                                    <div ng-message="pattern">מספר בית שגוי - </div>
+                                    <div ng-message="maxlength">מספר בית יכול להיות עד 3 תווים</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                </div>
+
+                <div class="w3-row form_row w3-hide-large w3-hide-medium" dir="rtl">
+                    <div class="form-group w3-third required">
+                        <md-input-container flex>
+                            <label for="streetNumber_m" class="control-label">מספר בית</label>
+                            <!--<input type="number" id="streetNumber_m" class="md-block" ng-model="searchAddress.streetNumber" />-->
+                            <input required name="rentalStreetNum_m" ng-pattern="/^[1-9]\d{0,3}$/" id="streetNumber_m" class="md-block" ng-model="searchAddress.streetNumber" ng-focus="gotoElement('rentalStreet')" />
+                            <div ng-messages="searchForm.rentalStreetNum_m.$error" ng-if="searchForm.rentalStreetNum_m.$touched">
+                                <div ng-message="required">מספר בית הינו שדה <b>חובה </b></div>
+                                <div ng-message="pattern">מספר בית מורכב ממספרים בלבד ולא יכול להתחיל ב-0</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div class="form-group w3-third">
+                        <md-input-container>
+                            <label for="floor_m" class="control-label">קומה</label>
+                            <!--<input type="number" id="floor_m" class="md-block" ng-model="searchAddress.floor" />-->
+                            <input ng-pattern="/(^0$)|(^[1-9]\d{0,2}$)/" id="floor_m" name="rentalFloor_m" class="md-block" ng-model="searchAddress.floor" ng-focus="gotoElement('streetNumber_m')" />
+                            <div ng-messages="searchForm.rentalFloor_m.$error" ng-if="searchForm.rentalFloor_m.$touched">
+                                <div ng-message="pattern">מספר קומה חייב להכיל מספרים בלבד</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div class="form-group w3-third">
+                        <md-input-container flex>
+                            <label for="apartmentNumber_m" class="control-label">מספר דירה</label>
+                            <!--<input type="number" id="apartmentNumber_m" class="md-block" ng-model="searchAddress.apartmentNumber" />-->
+                            <input ng-pattern="/^[1-9]\d{0,2}$/" id="apartmentNumber_m" name="rentalApartmentNum_m" class="md-block" ng-model="searchAddress.apartmentNumber" ng-focus="gotoElement('floor_m')" />
+                            <div ng-messages="searchForm.rentalApartmentNum_m.$error" ng-if="searchForm.rentalApartmentNum_m.$touched">
+                                <div ng-message="pattern">מספר דירה מורכב ממספרים בלבד ולא יכול להתחיל ב-0</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                </div>
+
+                <div class="form-group" id="formButtons">
+                    <md-button ng-hide="isWaitingForm" type="submit" value="search" class="w3-button w3-padding w3-large w3-margin" style="background-color:#00cc44">חפש</md-button>
+                    <div layout="row" layout-sm="column" layout-align="space-around" ng-show="isWaitingForm">
+                        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                    </div>
+                </div>
+                <div id="contactTrigger">
+                    רוצה לשתף אותנו בחוויה? <a href="" onclick="document.getElementById('id01').style.display='block'">צור קשר</a>
+                </div>
+
+            </div>
+        </form>
+
+
+    </div>
+
+    <div id="searchContent">
+        <div ng-show="checklistResult" ng-repeat="checklistEntry in checklistResult">
+            <!--style="width: 75%;"-->
+            <md-toolbar flex layout-padding style="background-color:  #ffd11a">
+                <div class="md-toolbar-tools">
+                    <h2>צ'קליסט ל-{{ parsedAddress }}, קומה: {{ checklistEntry.address.floor }} דירה: {{ checklistEntry.address.apartmentNumber }}</h2>
+                </div>
+            </md-toolbar>
+
+            <md-content flex layout-padding style="padding: 30px 10px;">
+                <style scoped>
+                    .md-accordion .expandCollapse {
+                        width: 30px;
+                        height: 30px;
+                        position: relative;
+                        font-size: 20px;
+                        font-weight: bold;
+                        cursor: pointer;
+                        color: #fff;
+                        display: block;
+                        margin-top: -2px;
+                        margin-left: -2px;
+                        overflow: hidden;
+                    }
+                    
+                    .md-accordion .expandCollapse:active {
+                        border: 0px;
+                    }
+                    
+                    .md-accordion .expandCollapse:before,
+                    .md-accordion .expandCollapse:after {
+                        width: 30px;
+                        height: 30px;
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        line-height: 32px;
+                        text-align: center;
+                        -webkit-transition: .3s all ease-out;
+                        transition: .3s all ease-out;
+                    }
+                    
+                    .md-accordion .expandCollapse:before {
+                        opacity: 1;
+                        -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+                        content: "|";
+                        margin-top: -3px;
+                    }
+                    
+                    .md-accordion .expandCollapse:after {
+                        opacity: 1;
+                        -webkit-transform: rotate(-90deg);
+                        transform: rotate(-90deg);
+                        content: "|";
+                        margin-left: -3px;
+                    }
+                    
+                    .md-accordion .active:before {
+                        opacity: 1;
+                        -webkit-transform: rotate(90deg);
+                        transform: rotate(90deg);
+                        margin-left: 3px;
+                        margin-top: 0px;
+                    }
+                    
+                    .md-accordion .dataContent {
+                        background: #F2F2F2;
+                        height: 0px;
+                        overflow: hidden;
+                        -webkit-transition: .3s all ease-out;
+                        transition: .3s all ease-out;
+                    }
+                    
+                    .md-accordion .activeContent {
+                        height: auto;
+                        padding: 20px;
+                        display: block;
+                    }
+                    
+                    .md-accordion md-toolbar {
+                        cursor: pointer;
+                        position: inherit;
+                        border-bottom: 1px solid rgb(63, 107, 181);
+                        margin-bottom: 3px;
+                    }
+                </style>
+                <!--<md-content> <br>-->
+                <!--<div class="md-accordion" ng-repeat="data in checklistEntry.parsedAnswers">-->
+                <!--<md-toolbar ng-init="data.expanded = false" ng-click="collapseAll(data)">-->
+                <!--<div class="md-toolbar-tools">-->
+                <!--<h2>-->
+                <!--<span>{{data.question}}</span>-->
+                <!--</h2>-->
+                <!--<span flex=""></span>-->
+                <!--<span ng-class="{expandCollapse:true, active:data.expanded}"></span>-->
+                <!--</div>-->
+                <!--</md-toolbar>-->
+                <!--<div ng-class="{dataContent:true, activeContent:data.expanded}">-->
+                <!--<i class="fa fa-asterisk"></i> &nbsp&nbsp{{ data.answer }}-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</md-content>-->
+                <md-content id="search_table">
+                    <table>
+                        <tr ng-repeat="questions in checklistEntry.parsedAnswers" id="search-ans">
+                            <td ng-if="questions.answer!=='אין מידע'" ng-show="questions.question!==0"> <i class="fa fa-asterisk"></i> &nbsp&nbsp<b> {{ questions.question }}: </b></td>
+                            <td ng-show="questions.question===0"></td>
+                            <td ng-if="questions.answer!=='אין מידע'"> <b>{{ questions.answer }} </b></td>
+                        </tr>
+                        <tr ng-show="questions.question===0">
+                            <td>
+                                <i class="fa fa-asterisk"></i>><b> {{ questions.answer }} </b>
+                            </td>
+                        </tr>
+                    </table>
+                </md-content>
+            </md-content>
+
+
+            <!--<md-content class="w3-row" style="padding: 70px 200px; ">-->
+            <!--<div class="w3-half">-->
+            <!--<div ng-repeat="questions in checklistEntry.parsedAnswers"style="font-size: 1.3em">-->
+            <!--{{ questions.answer }}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="w3-half">-->
+            <!--<div ng-repeat="questions in checklistEntry.parsedAnswers"  style="font-size: 1.5em">-->
+            <!--<i class="fa fa-asterisk"></i> &nbsp&nbsp{{ questions.question }}:-->
+            <!--</div>	-->
+            <!--</div>-->
+            <!--</md-content>-->
+
+        </div>
+    </div>
+
+</div>
+<!--<div ng-app="myApp" ng-controller="customersCtrl">-->
+
+
+
+<!--</div>-->
+
+<!--<script>-->
+<!--var app = angular.module('myApp', []);-->
+<!--app.controller('customersCtrl', function($scope, $http) {-->
+<!--$http.get("customers.php")-->
+<!--.then(function (response) {$scope.names = response.data.records;});-->
+<!--});-->
+<!--</script>-->

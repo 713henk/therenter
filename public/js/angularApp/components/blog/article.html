@@ -1,0 +1,19 @@
+<!-- Header with full-height image -->
+<header class="w3-display-container w3-row-padding w3-grayscale-min w3-opacity-min articalP" style="height:350px;">
+    <span class="titles w3-right w3-padding-large w3-black w3-xlarge w3-wide w3-opacity-min w3-hide-small">{{ article.title }}</span>
+
+
+</header>
+<div class="w3-display-container article_text">
+    <article class="w3-container " dir="rtl">
+        <h2 class="w3-hide-medium w3-hide-large w3-center"><b>{{ article.title }}</b></h2>
+        <!--<h4 style="text-align:center"><strong> מאת: </strong> {{ article.author.name.first }}  {{ article.author.name.last }}</h4><br>-->
+        <!--<h3 style="text-align:justify">כתיבה יונגיאנית</h3>-->
+        <p ng-bind-html="article.content.extended"></p>
+    </article>
+	<div class="w3-row-padding w3-center">
+		<a ui-sref="blog">
+			<md-button class="w3-button w3-padding w3-large" style="background-color:  #00cc44">חזרה למאמרים</md-button>
+		</a>
+	</div>
+</div>

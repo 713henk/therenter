@@ -1,0 +1,34 @@
+<md-dialog aria-label="Sign In" ng-controller="HomeController as vm" dir="rtl">
+    <form ng-cloak>
+        <md-toolbar dir="ltr">
+            <div class="md-toolbar-tools">
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times w3-large" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content w3-center" ng-if="user.isLoggedIn()">
+                <p>הינך מחובר למערכת<br> תודה לך על הרשמתך, אתה מוזמן להוסיף רשומות חדשות באתר</p>
+            </div>
+            <md-button class="md-primary md-raised w3-center" data-ng-show="user.isLoggedIn()" ng-click="hide()">
+המשך
+            </md-button>
+
+            <div class="md-dialog-content w3-center" ng-if="!user.isLoggedIn()">
+                <p>אינך מחובר למערכת<br> רק משתמשים רשומים יכולים למלא צ'קליסט</p>
+            </div>
+            <md-button class="btn btn-primary btn-large" data-ng-show="!user.isLoggedIn()" data-ng-disabled="!facebookReady" data-ng-click="vm.IntentLogin()">התחבר</md-button>
+        </md-dialog-content>
+
+        <!--<md-dialog-actions layout="row" class="w3-hide-small" style="margin-bottom: 10px">-->
+            <!--<md-button  ui-sref="checklist" target="_blank" md-autofocus  class="w3-button w3-lime w3-margin" >למעבר לצ'ק ליסט-->
+            <!--</md-button>-->
+        <!--</md-dialog-actions>-->
+
+        <!--<md-dialog-actions layout="row" class="w3-hide-large w3-hide-medium" style="padding-right: 10px; margin-bottom: 10px">-->
+
+        <!--</md-dialog-actions>-->
+    </form>
+</md-dialog>

@@ -1,0 +1,35 @@
+<md-dialog aria-label="Checklist" dir="rtl">
+    <form ng-cloak>
+		<md-toolbar dir="ltr">
+			<div class="md-toolbar-tools">
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<i class="fa fa-times w3-large" aria-hidden="true"></i>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content w3-center">
+                <p>כבר הכנסת את הבית שלך לצ'קליסט?<br> אם לא, זה הזמן!</p>
+            </div>
+        </md-dialog-content>
+		
+        <md-dialog-actions layout="row" class="w3-hide-small" style="margin-bottom: 10px">
+            <md-button  ui-sref="checklist" target="_blank" md-autofocus  class="w3-button w3-lime w3-margin" >למעבר לצ'ק ליסט
+            </md-button>
+			
+            <md-button  ng-click="hide()" class="w3-button w3-margin " style="background-color:#ffd633">צפה בבדיקה
+            </md-button>
+        </md-dialog-actions>
+		
+		<md-dialog-actions layout="row" class="w3-hide-large w3-hide-medium" style="padding-right: 10px; margin-bottom: 10px">
+			<md-button flex-xs="300" ui-sref="checklist" target="_blank" md-autofocus  class="w3-lime w3-small" >למעבר לצ'ק ליסט
+			</md-button>
+			
+			<md-button flex-xs="300" ng-click="hide()" class=" w3-small" style="background-color:#ffd633">צפה בבדיקה
+			</md-button>
+		</md-dialog-actions>	
+    </form>
+</md-dialog>
+

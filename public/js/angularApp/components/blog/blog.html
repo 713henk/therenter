@@ -1,0 +1,86 @@
+<!-- Header with full-height image -->
+<header class="w3-display-container w3-grayscale-min w3-opacity-min top" id="articles">
+    <span class="titles w3-padding-large w3-black w3-xlarge w3-wide">מאמרים</span>
+</header>
+
+<div class="w3-row " dir="rtl" id="blog_content">
+    <div class="w3-quarter left_content w3-hide-small">
+        <!--<md-card class="left_card ">-->
+        <!--<md-card-title>-->
+        <!--<md-card-title-text>-->
+        <!--<span class="md-headline">נרשמת כבר לאתר?</span>-->
+        <!--</md-card-title-text>-->
+        <!--</md-card-title>-->
+        <!--<md-card-content>-->
+        <!--<p>-->
+        <!--The titles of Washed Out's breakthrough song and the first single from Paracosm share the-->
+        <!--</p>-->
+        <!--</md-card-content>-->
+        <!--<md-card-actions layout="row" layout-align="center">-->
+        <!--<div id="spinner" style="background: #4267b2; border-radius: 5px; color: white; height: 40px; text-align: center; width: 250px;">-->
+        <!--Loading...-->
+        <!--<div class="fb-login-button" scope="public_profile,email,user_friends" onlogin="vm.checkLoginState();" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>-->
+        <!--</div>-->
+        <!--</md-card-actions>-->
+        <!--</md-card>-->
+
+        <md-button ui-sref="checklist" target="_blank" class="md-padding" style="width: 95%; font-size: 1.1em; text-align: right;">
+            <i class="fa fa-check-square-o" aria-hidden="true"></i> למילוי צ'ק ליסט
+        </md-button>
+        <md-button ui-sref="rentalSearch" target="_blank" class="md-padding" style="width: 95%; font-size: 1.1em; text-align: right;">
+            <i class="fa fa-home" aria-hidden="true"></i> צפה בצ'ק ליסט
+        </md-button>
+    </div>
+
+    <div class="w3-threequarter the_renter_form">
+        <div id="popupContainer" ng-init="loadArticles()" ng-cloak>
+            <md-content class="md-padding" layout-xs="column" layout="row" style="margin-bottom:30px;">
+                <div flex-xs flex-gt-xs="90" flex-sm="90" layout="column">
+                    <md-card ng-repeat="card in cards track by card.slug" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch class="art_card" style="padding: 10px">
+
+                        <div class="w3-display-container w3-grayscale-min w3-opacity-min photo">
+                            <span class="w3-padding-large w3-black w3-large card_title w3-hide-small">{{ card.title }}</span>
+                        </div>
+
+                        <md-card-content class="text_card md-padding">
+                            <span class=" w3-large w3-hide-medium w3-hide-large"><b>{{ card.title }}</b></span>
+                            <p ng-bind-html="card.content.brief"></p>
+                        </md-card-content>
+
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button type="button" class="md-primary md-raised" style="background-color:grey" ui-sref="article({ slug: card.slug })"> המשך למאמר </md-button>
+
+                        </md-card-actions>
+                    </md-card>
+                </div>
+            </md-content>
+        </div>
+    </div>
+    <div class="w3-quarter left_content w3-hide-large w3-hide-medium">
+        <!--<md-card class=left_card">-->
+        <!--<md-card-title>-->
+        <!--<md-card-title-text>-->
+        <!--<span class="md-headline">נרשמת כבר לאתר?</span>-->
+        <!--</md-card-title-text>-->
+        <!--</md-card-title>-->
+        <!--<md-card-content>-->
+        <!--<p>-->
+        <!--The titles of Washed Out's breakthrough song and the first single from Paracosm share the-->
+        <!--</p>-->
+        <!--</md-card-content>-->
+        <!--<md-card-actions layout="row" layout-align="center">-->
+        <!--<div style="background: #4267b2; border-radius: 5px; color: white; height: 40px; text-align: center; width: 250px;">-->
+        <!--Loading...-->
+        <!--<div class="fb-login-button" scope="public_profile,email,user_friends" onlogin="vm.checkLoginState();" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>-->
+        <!--</div>-->
+        <!--</md-card-actions>-->
+        <!--</md-card>-->
+
+        <md-button ui-sref="checklist" target="_blank" class="md-padding" style="width: 95%; font-size: 1.1em; text-align: right;">
+            <i class="fa fa-check-square-o" aria-hidden="true"></i> למילוי צ'ק ליסט
+        </md-button>
+        <md-button ui-sref="rentalSearch" target="_blank" class="md-padding" style="width: 95%; font-size: 1.1em; text-align: right;">
+            <i class="fa fa-home" aria-hidden="true"></i> צפה בצ'ק ליסט
+        </md-button>
+    </div>
+</div>

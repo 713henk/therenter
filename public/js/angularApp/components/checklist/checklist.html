@@ -1,0 +1,289 @@
+<header class="w3-display-container w3-grayscale-min w3-opacity-min top" id="checklist_head" ng-cloak>
+    <span class="titles w3-padding-large w3-black w3-xlarge w3-wide">מילוי צ'ק ליסט</span>
+</header>
+<div class="w3-container" dir="rtl" ng-show="!isWaitingForm && !user.isLoggedIn()" ng-controller="HomeController as vm" ng-cloak>
+    <div class="registration w3-row-padding w3-container w3-center intro_section">
+        <div class="registration_c ">
+            <h1>הרשמה לאתר</h1>
+            <p>
+                התחבר לאתר בכדי להשתמש בצ'קליסט<br>
+            </p>
+            <div class="w3-row">
+                <md-checkbox ng-model="terms" ng-show="!user.isLoggedIn()" aria-label="Checkbox Terms">
+                    אני מאשר את
+                </md-checkbox>
+                <a href="" ng-show="!user.isLoggedIn()" ng-click="vm.showAdvanced($event, 'terms')"> תקנון השימוש</a>
+            </div>
+
+            <md-button class="md-primary md-raised w3-center" ng-show="!user.isLoggedIn()" data-ng-disabled="!terms" data-ng-click="vm.IntentLogin()">התחבר עם פייסבוק</md-button>
+        </div>
+    </div>
+</div>
+<!--ng-init="init($event)"-->
+
+<div class="w3-container" dir="rtl" ng-show="user.isLoggedIn()" ng-init="loadQuestions()" ng-cloak>
+    <!--<div class="content w3-container" dir="rtl" ng-init="init($event)" ng-cloak>-->
+    <!--<form class="form-horizontal w3-center"-->
+    <div class="w3-row rentalSearch">
+        <div class="w3-third" id="instructions" hide-xs>
+            <md-content flex layout-padding>
+                <p>
+                    1. &nbsp&nbsp הכנס כתובת<br/> 2. &nbsp&nbsp מלא צ'קליסט על הדירה<br/> 3.&nbsp&nbsp שתף עם חבריך<br/>
+                </p>
+            </md-content>
+        </div>
+        <!--form-horizontal rentalSearch-->
+        <form class="form-horizontal w3-center w3-twothird  the_renter_form" dir="rtl" ng-submit="submitChecklistForm($event)" ng-init="loadAllCities()" name="checklistForm" role="form" id="checkForm" novalidate>
+            <!--<div class="w3-twothird w3-center the_renter_form">-->
+            <div class="form_section" id="address">
+                <h4 class="w3-right">כתובת</h4>
+                <div class="w3-row form_row" dir="rtl">
+                    <div class="form-group w3-half w3-right required">
+                        <md-autocomplete flex required id="city" md-no-cache="true" md-dropdown-position="bottom" class="form-control autocomplete required" md-input-name="cityField" md-selected-item="selectedChecklistCity" md-search-text-change="searchCityTextChange(searchText)"
+                            md-search-text="searchText" md-selected-item-change="selectedCityChange(city, 'checklist')" md-items="city in querySearchCities(searchText)" md-item-text="city.display" md-input-minlength="2" md-input-maxlength="18" md-require-match
+                            md-floating-label="בחר עיר">
+                            <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{city.display}}</span>
+                            </md-item-template>
+                            <md-not-found dir="rtl">
+                                לא נמצאה עיר המכילה את הביטוי "{{searchText}}"
+                            </md-not-found>
+                            <div ng-messages="checklistForm.cityField.$error" ng-if="checklistForm.cityField.$touched">
+                                <div ng-message="required">עיר הינו שדה <b>חובה</b></div>
+                                <div ng-message="md-require-match">אנא בחר עיר מתוך האפשרויות המוצעות</div>
+                                <div ng-message="minlength">הקלט קצר מידי</div>
+                                <div ng-message="maxlength">הקלט ארוך מידי</div>
+                            </div>
+                        </md-autocomplete>
+                    </div>
+                    <div class="form-group w3-half w3-right required">
+                        <md-autocomplete flex required id="street" ng-disabled="isDisabledStreets" md-no-cache="true" md-dropdown-position="bottom" class="form-control autocomplete required" md-input-name="streetField" md-input-minlength="2" md-input-maxlength="18" md-selected-item="selectedChecklistStreet"
+                            md-search-text-change="searchStreetTextChange(searchStreetText)" md-search-text="searchStreetText" md-selected-item-change="selectedStreetChange(street, 'checklist')" md-items="street in querySearchStreets(searchStreetText, 'checklist')"
+                            md-item-text="street.display" md-require-match md-floating-label="בחר רחוב">
+                            <md-item-template>
+                                <span md-highlight-text="searchStreetText" md-highlight-flags="^i">{{street.display}}</span>
+                            </md-item-template>
+                            <md-not-found dir="rtl">
+                                לא נמצא רחוב המכיל את הביטוי "{{searchStreetText}}"
+                            </md-not-found>
+                            <div ng-messages="checklistForm.streetField.$error" ng-if="checklistForm.streetField.$touched">
+                                <div ng-message="required">שדה רחוב הינו שדה <b>חובה</b></div>
+                                <div ng-message="md-require-match">אנא בחר רחוב מתוך האפשרויות המוצעות</div>
+                                <div ng-message="minlength">הקלט קצר מידי</div>
+                                <div ng-message="maxlength">הקלט ארוך מידי</div>
+                            </div>
+                        </md-autocomplete>
+                    </div>
+                </div>
+                <div class="w3-row form_row w3-hide-small">
+                    <md-content layout-padding>
+                        <div class="form-group w3-third required">
+                            <md-input-container flex>
+                                <label for="apartmentNumber" class="control-label">מספר דירה</label>
+                                <input required id="apartmentNumber" name="apartment" ng-model="checklistAddress.apartmentNumber" class="form-control md-block" md-maxlength="3" ng-pattern="/^[1-9]\d{0,2}$/" />
+                                <div ng-messages="checklistForm.apartment.$error" ng-if="checklistForm.apartment.$touched" multiple>
+                                    <div ng-message="pattern">מספר דירה שגוי</div>
+                                    <div ng-message="maxlength">מספר דירה לא יכול להיות יותר מ-4 תווים.</div>
+                                    <div ng-message="required">מספר דירה הוא <b>חובה</b></div>
+                                </div>
+                            </md-input-container>
+
+                        </div>
+                        <div class="form-group w3-third">
+                            <md-input-container flex>
+                                <label for="floor" class="control-label">קומה</label>
+                                <input name="floor" md-maxlength="3" id="floor" class="form-control md-block" ng-pattern="/(^0$)|(^[1-9]\d{0,2}$)/" ng-model="checklistAddress.floor" />
+                                <div ng-messages="checklistForm.floor.$error">
+                                    <div ng-message="pattern">מספר קומה חייב להיות בין 0-3 תווים מספריים</div>
+                                    <div ng-message="maxlength">מספר קומה לא יכול להיות יותר מ-3 תווים.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+
+                        <div class="form-group w3-third required">
+                            <md-input-container flex>
+                                <label for="streetNumber">מספר בית</label>
+                                <input required id="streetNumber" name="streetNum" ng-model="checklistAddress.streetNumber" class="form-control md-block" md-maxlength="3" ng-pattern="/^[1-9]\d{0,2}$/" />
+                                <div ng-messages="checklistForm.streetNum.$error" ng-if="checklistForm.streetNum.$touched" multiple>
+                                    <div ng-message="required">מספר בית הינו שדה <b>חובה</b></div>
+                                    <div ng-message="minlength">מספר בית חייב להכיל לפחות תו 1</div>
+                                    <div ng-message="pattern">מספר בית שגוי - </div>
+                                    <div ng-message="maxlength">מספר בית יכול להיות עד 3 תווים</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                </div>
+
+
+                <div class="w3-row w3-hide-medium w3-hide-large">
+                    <div class="form-group w3-third required">
+                        <md-input-container flex>
+                            <label for="streetNumber_m" class="control-label">מספר בית</label>
+                            <input required name="streetNum_m" ng-pattern="/^[1-9]\d{0,2}$/" id="streetNumber_m" class="md-block" ng-model="checklistAddress.streetNumber" ng-focus="gotoElement('street')" />
+                            <div ng-messages="checklistForm.streetNum_m.$error" ng-if="checklistForm.streetNum_m.$touched" multiple>
+                                <div ng-message="required">מספר בית הינו שדה <b>חובה </b></div>
+                                <div ng-message="pattern">מספר בית מורכב ממספרים בלבד ולא יכול להתחיל ב-0</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div class="form-group w3-third required">
+                        <md-input-container>
+                            <label for="apartmentNumber_m" class="control-label">מספר דירה</label>
+                            <input required ng-pattern="/^[1-9]\d{0,3}$/" id="apartmentNumber_m" name="apartmentNum_m" class="md-block" ng-model="checklistAddress.apartmentNumber" ng-focus="gotoElement('streetNumber_m')" />
+                            <div ng-messages="checklistForm.apartmentNum_m.$error" ng-if="checklistForm.apartmentNum_m.$touched">
+                                <div ng-message="required">מספר דירה הינו שדה <b>חובה </b></div>
+                                <div ng-message="pattern">מספר דירה מורכב ממספרים בלבד ולא יכול להתחיל ב-0</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div class="form-group w3-third">
+                        <md-input-container flex>
+                            <label for="floor_m" class="control-label">קומה</label>
+                            <input ng-pattern="/(^0$)|(^[1-9]\d{0,2}$)/" id="floor_m" name="floor_m" class="md-block" ng-model="checklistAddress.floor" ng-focus="gotoElement('apartmentNumber_m')" />
+                            <div ng-messages="checklistForm.floor_m.$error" ng-if="checklistForm.floor_m.$touched">
+                                <div ng-message="pattern">מספר קומה חייב להכיל מספרים בלבד</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+
+                </div>
+            </div>
+            <hr>
+            <!-- HERE IS WHERE WE NG-REPEAT - ALL CHECKLIST ENTRIES-->
+            <div class="form_section w3-center" id="questions">
+                <h4 class="w3-right">רשומות הצ'ק ליסט</h4>
+                <div class="w3-row accordion">
+                    <style scoped>
+                        .md-accordion .expandCollapse {
+                            width: 30px;
+                            height: 30px;
+                            position: relative;
+                            font-size: 20px;
+                            font-weight: bold;
+                            cursor: pointer;
+                            color: #fff;
+                            display: block;
+                            margin-top: -2px;
+                            margin-left: -2px;
+                            overflow: hidden;
+                        }
+                        
+                        .md-accordion .expandCollapse:active {
+                            border: 0px;
+                        }
+                        
+                        .md-accordion .expandCollapse:before,
+                        .md-accordion .expandCollapse:after {
+                            width: 30px;
+                            height: 30px;
+                            display: block;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            line-height: 32px;
+                            /*text-align:center;*/
+                            -webkit-transition: .3s all ease-out;
+                            transition: .3s all ease-out;
+                        }
+                        
+                        .md-accordion .expandCollapse:before {
+                            opacity: 1;
+                            -webkit-transform: rotate(0deg);
+                            transform: rotate(0deg);
+                            content: "|";
+                            margin-top: -3px;
+                        }
+                        
+                        .md-accordion .expandCollapse:after {
+                            opacity: 1;
+                            -webkit-transform: rotate(-90deg);
+                            transform: rotate(-90deg);
+                            content: "|";
+                            margin-left: -3px;
+                        }
+                        
+                        .md-accordion .active:before {
+                            opacity: 1;
+                            -webkit-transform: rotate(90deg);
+                            transform: rotate(90deg);
+                            margin-left: 3px;
+                            margin-top: 0px;
+                        }
+                        
+                        .md-accordion .dataContent {
+                            background: #F2F2F2;
+                            height: 0px;
+                            overflow: hidden;
+                            -webkit-transition: .3s all ease-out;
+                            transition: .3s all ease-out;
+                        }
+                        
+                        .md-accordion .activeContent {
+                            height: auto;
+                            padding: 20px;
+                            display: block;
+                        }
+                        
+                        .md-accordion md-toolbar {
+                            cursor: pointer;
+                            position: inherit;
+                            border-bottom: 1px solid rgb(63, 107, 181);
+                            margin-bottom: 3px;
+                        }
+                    </style>
+                    <md-content>
+                        <div id="question-{{ $index }}" class="md-accordion" ng-repeat="category in categories">
+                            <md-toolbar ng-init="category.expanded = false" ng-click="collapseAllCategories(category, $index)">
+                                <div class="md-toolbar-tools">
+                                    <h2>
+                                        <span>{{ category.categoryName }}</span>
+                                    </h2>
+                                    <span flex=""></span>
+                                    <span ng-class="{expandCollapse:true, active:category.expanded}"></span>
+                                </div>
+                            </md-toolbar>
+
+                            <div ng-class="{dataContent:true, activeContent:category.expanded}">
+                                <div class="md-accordion" ng-repeat="question in category.questions">
+                                    <md-toolbar ng-init="question.expanded = false" ng-click="collapseAllQuestions(question, category)">
+                                        <div class="md-toolbar-tools" style="background-color:lightblue; text-decoration: solid; color: #000011">
+                                            <h2>
+                                                <span>{{question.question}}</span>
+                                            </h2>
+                                            <span flex=""></span>
+                                            <span ng-class="{expandCollapse:true, active:question.expanded}"></span>
+                                        </div>
+                                    </md-toolbar>
+                                    <div layout="row" layout-xs="column">
+                                        <div ng-class="{dataContent:true, activeContent:question.expanded}" ng-repeat="answer in question.answersParsed" flex-gt-xs="60" layout="column">
+                                            <md-checkbox ng-model="answer.checked" ng-change="sync(answer.checked, answer, question.question)" class="answerItem{{question.position }} w3-right" name="checklist{{question.position }}" aria-label="{{ answer.answer }}">
+                                                {{ answer.answer }}
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+                </div>
+            </div>
+
+
+            <div class="w3-row w3-center">
+                <md-button type="submit" value="Save" ng-hide="isWaitingForm" class="w3-button w3-padding-large w3-large w3-margin" style="background-color:  #00cc44">המשך</md-button>
+                <div layout="row" layout-sm="column" layout-align="space-around" ng-show="isWaitingForm">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+
+                <md-button type="reset" value="Reset" ng-click="resetForm()" class="w3-button w3-padding-large w3-large w3-margin" style="background-color: #ffd11a">נקה טופס</md-button>
+            </div>
+            <div>
+                רוצה לשתף אותנו בחוויה? <a href="" onclick="document.getElementById('id01').style.display='block'">צור קשר</a>
+            </div>
+        </form>
+    </div>
+</div>

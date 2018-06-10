@@ -1,0 +1,31 @@
+<div class="w3-container" dir="rtl" style="min-height:600px; min-width:600px;">
+    <md-dialog aria-label="{{ article.heading }}">
+        <form ng-cloak>
+            <md-toolbar>
+                <div class="md-toolbar-tools" style="background: url('{{ article.imagePath }}') center;background-size: cover;">
+                    <h2 class="titles w3-right w3-padding-large w3-black w3-xlarge w3-wide w3-opacity-min w3-hide-small"><b>{{ article.heading }}</b></h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <!--<md-icon md-svg-src="" aria-label="Close dialog">X</md-icon>-->
+                        <span class="w3-black w3-xlarge w3-wide w3-opacity-min w3-hide-small">X</span>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-dialog-content md-scroll-y>
+                <!-- Header with full-height image -->
+                <div class="w3-display-container article_text">
+                    <article class="w3-container w3-section " dir="rtl">
+                        <h4 style="text-align:center"><strong>מאת:</strong>{{ article.author }}</h4><br>
+                        <!--<h3 style="text-align:justify">כתיבה יונגיאנית</h3>-->
+                        <p style="text-align:justify">{{ article.content }}</p>
+                    </article>
+                </div>
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+
+            </md-dialog-actions>
+        </form>
+    </md-dialog>
+</div>

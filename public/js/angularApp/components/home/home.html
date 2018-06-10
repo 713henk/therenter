@@ -1,0 +1,124 @@
+<div ng-controller="HomeController as vm" dir="rtl" class="ng-scope">
+     
+
+    <!-- HEADER -->
+ <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home" id="top">
+        <div class="w3-display-middle w3-center">
+            <p><span class="w3-center w3-padding-large w3-black w3-xxxlarge w3-wide w3-animate-opacity w3-hide-small">הצ'ק ליסט של The Renter</span></p>
+            <div class="w3-row w3-hide-large w3-hide-medium">
+                    <p style="margin-bottom: 5px"><span class="w3-center w3-padding w3-black w3-xxlarge w3-wide w3-animate-opacity">הצ'ק ליסט של</span></p>
+                    <p style="margin-top: 5px"><span class="w3-center w3-padding w3-black w3-xxlarge w3-wide w3-animate-opacity">The Renter</span></p>
+            </div>
+            <p class="w3-hide-small" style="padding-top: 10px">
+                    <span class="w3-center w3-padding-large w3-grey w3-xlarge w3-wide w3-opacity-min">
+                        אנו נעזור לך להימנע מטעויות ולהשכיר דירה בראש שקט
+                    </span>
+            </p>
+            <p style="padding-left: 16px; padding-right: 16px; margin: 0px">
+                <span class="w3-half w3-center w3-padding-small w3-grey w3-large w3-wide w3-opacity-min w3-hide-large w3-hide-medium">אנו נעזור לך להיכנס</span>
+            </p>
+            <p style="padding-left: 16px; padding-right: 16px">
+                <span class="w3-half w3-center w3-padding-small w3-grey w3-large w3-wide w3-opacity-min w3-hide-large w3-hide-medium">לבית הבא שלך בראש שקט</span>
+            </p>
+        </div>
+        <a ng-click="vm.gotoElement('intro')">
+            <span class="w3-display-bottommiddle w3-center w3-button w3-padding-large w3-grey w3-large w3-wide w3-opacity-min" style="margin-bottom:75px;">
+					<i class="fa fa-chevron-down w3-center"></i>
+				</span>
+        </a>
+    </header> 
+
+
+
+    <!-- INTRODUCTION -->
+    <div class="w3-display-container" id="intro">
+        <div class="intro_section">
+            <h2><b>ברוכים הבאים לדה רנטר - פלטפורמה אינטרנטית לשוכרי הדירות בישראל</b></h2>
+            <p>לפניך צ'ק ליסט שיעזור לך למצוא את הבית האידיאלי עבורך.<br>
+                <b>איך הצ'ק ליסט עוזר לך?</b><br>
+                <i class="fa fa-check-square-o" aria-hidden="true"></i> &nbsp בדיקה יסודית של הדירה<br>
+                <i class="fa fa-check-square-o" aria-hidden="true"></i> &nbsp מיקוד בשלב המשא ומתן<br>
+                <i class="fa fa-check-square-o" aria-hidden="true"></i> &nbsp שיתוף הבדיקה עם חברייך וצפיה חוזרת בזמנך החופשי<br>
+            </p>
+            <a ui-sref="checklist" class="w3-button w3-lime w3-padding-large w3-large w3-margin-top w3-hover-opacity-off">למעבר למילוי צ'ק ליסט</a>
+        </div>
+    </div>
+
+    <!-- FACEBOOK SIGNUP-->
+    <div class="registration w3-row-padding w3-container w3-center intro_section">
+        <div class="registration_c w3-threequarter">
+            <h1>הרשמה לאתר</h1>
+            <p>
+                הרשמה לאתר מאפשרת לך להשתמש בצ'ק ליסט ללא הגבלה,<br> לשתף מידע באופן חופשי עם חבריך ולצפות בכל זמן במידע הקיים באתר
+            </p>
+            <!--<div id="spinner" style="background: #4267b2; border-radius: 5px; color: white; height: 40px; text-align: center; width: 250px;">-->
+            <!--Loading...-->
+            <!--<fb:login-button scope="public_profile,email" onlogin="$rootScope.facebook.getLoginStatus();" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true">-->
+            <!--</fb:login-button>-->
+            <!--<div class="fb-login-button" data-max-rows="1" data-size="large" onlogin="checkLoginState();" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>-->
+            <div class="w3-row">
+                <md-checkbox ng-model="terms" ng-show="!user.isLoggedIn()" aria-label="Checkbox Terms">
+                    אני מאשר את
+                </md-checkbox>
+                <a href="" ng-show="!user.isLoggedIn()" ng-click="vm.showAdvanced($event, 'terms')"> תקנון השימוש</a>
+            </div>
+
+            <md-button class="md-primary md-raised w3-center" ng-show="!user.isLoggedIn()" data-ng-disabled="!terms" data-ng-click="vm.IntentLogin()">התחבר עם פייסבוק</md-button>
+            <div id="status" ng-show="user.isLoggedIn()">
+                <div class="fb-like w3-center" data-share="true" data-width="450" data-show-faces="true">
+                </div>
+            </div>
+            <!--<div class="fb-login-button" scope="public_profile,email,user_friends" onlogin="checkLoginState()" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>-->
+
+            <!--</div>-->
+
+        </div>
+
+        <div class="w3-quarter" style="padding: 50px">
+            <i class="fa fa-bullhorn" style="font-size: 150px"></i>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="w3-display-container " id="services">
+       <h1 class="w3-center">יוצאים לדרך</h1>
+
+         <div class="w3-row-padding w3-center ">
+            <div class="w3-third">
+                <a ui-sref="checklist" class="block">
+                    <div class="w3-button w3-hover-white w3-circle w3-green butt">
+                        <div class="butt_c">
+                            <i class="fa fa-check-square-o w3-jumbo"></i>
+                        </div>
+                    </div>
+                    <p class="w3-large"> מילוי צ'ק ליסט</p>
+                    <p>לחץ כאן<br/> לבדיקה יסודית של הדירה</p>
+                </a>
+
+            </div>
+            <div class="w3-third ">
+                <a ui-sref="rentalSearch" class="block">
+                    <div class="w3-button w3-hover-white w3-circle w3-yellow butt">
+                        <div class="butt_c">
+                            <i class="fa fa-search w3-jumbo"></i>
+                        </div>
+                    </div>
+                    <p class="w3-large">צפה בצ'ק ליסט</p>
+                    <p>צפה בבדיקה<br/> ושתף את חבריך</p>
+                </a>
+            </div>
+            <div class="w3-third">
+                <a ui-sref="blog" class="block">
+                    <div class="w3-button w3-hover-white w3-circle w3-blue butt">
+                        <div class="butt_c">
+                            <i class="fa fa-newspaper-o w3-jumbo"></i>
+                        </div>
+                    </div>
+                    <p class="w3-large">מידע</p>
+                    <p>מאמרים וכתבות רלוונטיים <br/>לחייכם בשוק השכירות</p>
+                </a>
+
+            </div>
+        </div>
+    </div> 
+</div>

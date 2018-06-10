@@ -1,0 +1,79 @@
+<md-dialog aria-label="Thank You" dir="rtl">
+    <form ng-cloak>
+        <md-toolbar dir="ltr">
+            <div class="md-toolbar-tools">
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="fa fa-times w3-large" aria-hidden="true"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content w3-center">
+                <h3>סיימת למלא!</h3>
+                <p>
+
+                </p>
+            </div>
+        </md-dialog-content>
+
+
+        <md-dialog-actions layout="row" class="w3-hide-small" style="margin-bottom: 10px">
+            <md-button ui-sref="rentalSearch" class="w3-button w3-margin " style="background-color:#ffd633">צפה בצ'ק ליסט
+            </md-button>
+            <span flex></span>
+            <md-button ng-click="answer('useful')" target="_blank" md-autofocus class="w3-button w3-lime w3-margin">שתף בפייסבוק
+            </md-button>
+
+
+        </md-dialog-actions>
+
+        <md-dialog-actions layout="row" class="w3-hide-large w3-hide-medium" style="padding:0 16px;  margin-bottom: 10px">
+            <md-button flex-xs="300" ui-sref="rentalSearch" class=" w3-small" target="_blank" style="background-color:#ffd633" style="margin: 3px">צפה בצ'ק ליסט
+            </md-button>
+            <span flex></span>
+            <md-button flex-xs="300" ng-click="answer('useful')" md-autofocus class="w3-lime w3-small" style="margin: 0">שתף בפייסבוק
+            </md-button>
+
+
+        </md-dialog-actions>
+    </form>
+</md-dialog>
+
+
+
+
+<!--<md-dialog aria-label="Thank You">-->
+<!--<form ng-cloak>-->
+<!--<md-toolbar>-->
+<!--<div class="md-toolbar-tools">-->
+<!--<h2>Thank you</h2>-->
+<!--<span flex></span>-->
+<!--<md-button class="md-icon-button" ng-click="cancel()">-->
+<!--&lt;!&ndash;<md-icon md-svg-src="" aria-label="Close dialog">X</md-icon>&ndash;&gt;-->
+<!--<span class="w3-black w3-xlarge w3-wide w3-opacity-min w3-hide-small">X</span>-->
+<!--</md-button>-->
+<!--</div>-->
+<!--</md-toolbar>-->
+
+<!--<md-dialog-content>-->
+<!--<div class="md-dialog-content">-->
+<!--<h2>תודה שעזרת ליצור מציאות חדשה למעל 2 מיליון שוכרים.</h2>-->
+<!--<p>-->
+<!--תוכל לצפות בצ'ק ליסט שהכנסת במאגר השכירות בתום הבדיקה.-->
+<!--</p>-->
+<!--</div>-->
+<!--</md-dialog-content>-->
+
+<!--<md-dialog-actions layout="row">-->
+<!--<md-button ui-sref="rentalSearch" target="_blank" md-autofocus>-->
+<!--למעבר למאגר השכירות-->
+<!--</md-button>-->
+<!--<span flex></span>-->
+<!--<md-button ng-click="answer('useful')">-->
+<!--לחזרה לצ'קליסט-->
+<!--</md-button>-->
+<!--</md-dialog-actions>-->
+<!--</form>-->
+<!--</md-dialog>-->

@@ -1,0 +1,378 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-family: Raleway, Rubik, sans-serif
+}
+
+body,
+html {
+    height: 100%;
+    line-height: 1.8;
+}
+
+
+/*---------------------------------------------------------- NAVBAR --------------------------------------------------*/
+
+.w3-bar .w3-button {
+    padding: 20px 25px 15px 25px;
+    font-size: 1.1em;
+}
+
+.logo {
+    margin: 7px;
+    opacity: 0.7;
+}
+
+
+/*---------------------------------------------------------- INTRO --------------------------------------------------*/
+
+
+/* Full height image header */
+
+.bgimg-1 {
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://image.freepik.com/free-photo/hands-joined-by-the-team_1150-100.jpg");
+    min-height: 100%;
+    height: 700px;
+    white-space: nowrap;
+}
+
+.intro_section {
+    padding-bottom: 70px;
+    padding-top: 70px;
+    background-color: #ebebe0;
+}
+
+#services {
+    padding: 70px 0;
+}
+
+#services h1 {
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.block {
+    text-decoration: none;
+}
+
+.butt {
+    height: 200px;
+    width: 200px;
+}
+
+.butt_c {
+    padding: 60px 50px 60px 70px;
+}
+
+
+/*------------------------------------------------------general------------------------------------------------------*/
+
+
+/*header style*/
+
+.top {
+    background-size: cover;
+    height: 250px;
+}
+
+
+/*page content*/
+
+.content {
+    padding: 70px 150px;
+}
+
+.content p {
+    font-size: 1.5em;
+}
+
+.form_section {
+    margin-bottom: 50px;
+}
+
+.form_row {
+    margin: 30px 0px;
+}
+
+.titles {
+    position: absolute;
+    bottom: 0px;
+    right: 16px;
+    font-size: 18px;
+}
+
+
+/*------------------------------------------------------rental-Search------------------------------------------------------*/
+
+#rentalSearch_head {
+    background-position: center;
+    background-image: url("http://www.lifeofpix.com/wp-content/uploads/2016/12/img-4224-1.jpg");
+}
+
+#search-ans .tb {
+    height: 30px;
+}
+
+.autocomplete {
+    padding: 0 40px;
+    background-color: initial;
+}
+
+
+/*-------------------------------------------------------articles-----------------------------------------------------*/
+
+#articles {
+    background-image: url("../images/young-man-napping-on-white-sofa-in-the-office-picjumbo-com.jpg");
+}
+
+.articalP {
+    margin-top: 59px;
+    background-position: center;
+    background-size: cover;
+    background-image: url("../images/picseli-13577.jpg");
+    height: 50%;
+}
+
+.article_text {
+    padding: 30px 100px;
+}
+
+.art_card {
+    margin-right: 100px;
+    height: 400px;
+}
+
+.card_title {
+    position: absolute;
+    bottom: 0px;
+    right: 16px;
+}
+
+.photo {
+    background-position: center;
+    background-image: url("http://www.lifeofpix.com/wp-content/uploads/2016/12/atardecer.jpg");
+    background-size: cover;
+    height: 200px;
+}
+
+.left_content {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.left_card {
+    margin: 20px;
+}
+
+#blog_content {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.text_card {
+    height: 200px;
+    text-align: start;
+}
+
+#about_head {
+    background-position: center;
+    background-image: url("https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2015/08/SplitShire-61452-1024x683.jpg");
+}
+
+#checklist_head {
+    background-position: center;
+    background-image: url("http://www.lifeofpix.com/wp-content/uploads/2017/02/192travel-destination.jpg");
+}
+
+#gender {
+    margin-top: 0;
+    margin-right: 85px;
+    margin-left: 85px;
+    margin-bottom: 0;
+}
+
+
+/*AUTOCOMPLETE OVERRIDE*/
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    height: 420px;
+    max-height: 420px !important;
+}
+
+
+/* CHECKBOX CSS */
+
+.checkboxdemoBasicUsage div.flex-xs {
+    min-height: 40px;
+}
+
+.checkboxdemoBasicUsage .checkboxDemo1 div {
+    clear: both;
+}
+
+.checkboxdemoBasicUsage p {
+    padding-left: 8px;
+}
+
+.checkboxdemoBasicUsage legend {
+    color: #3F51B5;
+}
+
+.checkboxdemoBasicUsage legend code {
+    color: #3F51B5;
+    font-weight: normal;
+}
+
+.checkboxdemoBasicUsage .ipsum {
+    color: saddlebrown;
+}
+
+
+/* TEXT BOX CSS - RentalSearch*/
+
+.textbox {
+    border-radius: 2px;
+    display: block;
+    height: 40px;
+    position: relative;
+    overflow: visible;
+    min-width: 190px;
+}
+
+.checkboxdemoSelectAll .demo-select-all-checkboxes {
+    padding-left: 30px;
+}
+
+.question {
+    text-align: right;
+    padding: 10px;
+}
+
+[ng-required]:after {
+    content: "*";
+    color: red;
+}
+
+.inputdemoErrors .inputErrorsApp {
+    min-height: 48px;
+}
+
+.inputdemoErrors md-input-container>p {
+    font-size: 0.8em;
+    text-align: right;
+    width: 100%;
+}
+
+@media screen and (min-device-width: 2560px) {
+    .art_card {
+        margin-right: 200px;
+    }
+}
+
+@media screen and (min-device-width: 1024px) {
+    .intro_section {
+        padding-right: 100px;
+        padding-left: 100px;
+    }
+    .intro_section p {
+        font-size: 1.5em;
+        margin-bottom: 30px;
+    }
+    .rentalSearch {
+        padding: 70px 30px;
+    }
+    .rentalSearch p {
+        font-size: 1.3em;
+        line-height: 2;
+    }
+    .li_cont {
+        font-size: 1.5em;
+    }
+    .the_renter_form {
+        border-left: 0.1px solid #000080;
+    }
+    .autocomplete {
+        padding: 0 70px;
+    }
+    .accordion {
+        padding: 90px 90px 30px;
+    }
+}
+
+
+/*--------------tablet-----------------------*/
+
+@media screen and (max-device-width: 1023px) {
+    .intro_section {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+    .intro_section h2 {
+        font-size: 1.2em;
+    }
+    .content {
+        padding: 70px 30px;
+    }
+    .content p {
+        font-size: 1em;
+    }
+    #gender {
+        margin-right: 60px;
+        margin-left: 60px;
+    }
+    .art_card {
+        margin-right: 100px;
+    }
+    .li_cont {
+        font-size: 1em;
+    }
+}
+
+
+/*--------------smart-phone-----------------------*/
+
+@media screen and (max-device-width: 600px) {
+    .text {
+        padding: 80px 10px;
+    }
+    .articles {
+        background-size: cover;
+        height: 40%;
+    }
+    .article_text {
+        padding: 30px 10px;
+    }
+    #rental_form {
+        border-left: 0;
+    }
+    .logo {
+        margin-left: 15px;
+    }
+    .art_card {
+        margin: 20px;
+        height: 420px;
+    }
+    .photo {
+        height: 130px;
+    }
+    .text_card {
+        height: 280px;
+    }
+    .text_card p {
+        font-size: 0.9em;
+    }
+    #blog_content {
+        padding-top: 40px;
+    }
+}
+
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: red;
+}

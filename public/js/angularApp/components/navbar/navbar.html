@@ -1,0 +1,180 @@
+<div class="" dir="rtl">
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top" style="position:fixed">
+        <div class="w3-bar w3-white w3-card-2" id="myTopnav">
+            <!-- Logo -->
+            <div class="w3-right w3-hide-small logo">
+                <a ui-sref="home">
+                    <img src="images/the-renter-logo.png" height="45px">
+                </a>
+            </div>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-lime" ng-show="user.isLoggedIn()" ng-click="vm.logout()">התנתק</a>
+                <!--<a href="" ng-if="$rootScope.user.isLoggedIn()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime">התנתק</a>-->
+                <a href="" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button w3-hover-lime">צור קשר</a>
+                <a ui-sref="rentalSearch" class="w3-bar-item w3-button w3-hover-lime">צפה בצ'ק ליסט</a>
+                <a ui-sref="checklist" class="w3-bar-item w3-button w3-hover-lime">מילוי צ'ק ליסט</a>
+                <a ui-sref="blog" class="w3-bar-item w3-button w3-hover-lime">מאמרים</a>
+                <a ui-sref="about" class="w3-bar-item w3-button w3-hover-lime">אודות</a>
+                <a ui-sref="home" class="w3-bar-item w3-button w3-hover-lime">דף הבית</a>
+                <!--onclick="logout_from_fb();"-->
+
+                <!--<button ng-if="vm.auth.isAuthenticated()" ng-click="vm.logout()">התנתק</button>-->
+            </div>
+            <div class="w3-row w3-hide-medium w3-hide-large">
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" ng-click="vm.w3_open()">
+                    <span class="w3-right"><i class="fa fa-bars"></i></span>
+                </a>
+                <div class="w3-left logo">
+                    <a ui-sref="home">
+                        <img src="images/the-renter-logo.png" height="45px">
+                    </a>
+                </div>
+                <!--<span class="w3-left"><img src="images/the-renter-logo.png" height="50px" /></span>-->
+            </div>
+
+        </div>
+    </div>
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav id="mySidebar" class="w3-sidebar w3-bar-block w3-white w3-card-2 w3-animate-right w3-hide-medium w3-hide-large" style="display:none;z-index:4">
+        <a href="javascript:void(0)" ng-click="vm.w3_close()" class="w3-bar-item w3-border-bottom w3-button w3-large w3-padding-16"><span class="w3-right">סגור</span><span class="w3-left">&times</span> </a>
+        <a ui-sref="home" ng-click="vm.w3_close()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime"><span class="w3-right" value="דף הבית">דף הבית</span></a>
+        <a ui-sref="about" ng-click="vm.w3_close()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime"><span class="w3-right" value="אודות">אודות</span></a>
+        <a ui-sref="blog" ng-click="vm.w3_close()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime"><span class="w3-right">מאמרים</span></a>
+        <a ui-sref="checklist" ng-click="vm.w3_close()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime"><span class="w3-right">מילוי צ'ק ליסט</span></a>
+        <a ui-sref="rentalSearch" ng-click="vm.w3_close()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime"><span class="w3-right">צפה בצ'ק ליסט</span></a>
+        <a href="#" onclick="document.getElementById('id01').style.display='block'" ng-click="vm.w3_close()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime">
+            <span class="w3-right">צור קשר</span>
+        </a>
+        <!--onclick="logout_from_fb();"-->
+        <a href="javascript:void(0)" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime" ng-show="user.isLoggedIn()" ng-click="vm.logout()">
+            <span class="w3-right">התנתק</span>
+        </a>
+
+        <!--<button ng-if="vm.auth.isAuthenticated()" ng-click="vm.logout()">התנתק</button>-->
+    </nav>
+
+    <!-- Overlay -->
+    <div class="w3-overlay" id="myOverlay" onclick="w3_close()" style="cursor:pointer"></div>
+
+    <!-- Modal -->
+    <div id="id01" class="w3-modal" dir="rtl">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+            <div class="w3-center"><br>
+                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                <h3>צור קשר</h3>
+            </div>
+
+            <form class="w3-container" method="POST" name="contactForm" action="https://formspree.io/contact@therenter.com">
+                <div class="w3-section">
+                    <!--<label><b>שם מלא</b></label>-->
+                    <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="שם מלא" name="name" required>-->
+                    <!--<label><b>דואר אלקטרוני</b></label>-->
+                    <!--<input class="w3-input w3-border" type="email" placeholder="הכנס דואר אלקטרוני" name="email" required>-->
+                    <!--<label><b>נושא הפנייה</b></label>-->
+                    <!--<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="נושא" name="topic" required>-->
+                    <!--<label><b>הודעה</b></label>-->
+                    <!--<input class="w3-input w3-border w3-margin-bottom" type="textarea" placeholder="הודעה" name="message" required>-->
+
+                    <md-content class="md-no-momentum">
+                        <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>שם מלא</label>
+                            <md-icon md-svg-src="images/ic_person_black_24px.svg" class="name"></md-icon>
+                            <input ng-model="name" name="name" type="text" ng-required="true" placeholder="שם מלא">
+                        </md-input-container>
+
+
+                        <md-input-container class="md-block">
+                            <!-- Use floating placeholder instead of label -->
+                            <md-icon md-svg-src="images/ic_email_black_24px.svg" class="email"></md-icon>
+                            <input ng-model="email" type="email" placeholder="דואר אלקטרוני" ng-required="true">
+                        </md-input-container>
+
+                        <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>נושא</label>
+                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                            <input ng-model="topic" name="name" type="text" ng-required="true" placeholder="נושא ההודעה">
+                        </md-input-container>
+
+                        <md-input-container class="md-icon-float md-block">
+                            <!-- Use floating label instead of placeholder -->
+                            <label>תוכן ההודעה</label>
+                            <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon>
+                            <input ng-model="content" name="name" type="textarea" md-maxlength="300" ng-required="true" placeholder="תוכן ההודעה">
+                        </md-input-container>
+                    </md-content>
+                    <style scoped>
+                        .inputdemoIcons {
+                            /*
+                          .right-icon {
+                            position: absolute;
+                            top: 4px;
+                            right: 2px;
+                            left: auto;
+                            margin-top: 0;
+                          }
+                          */
+                        }
+                        
+                        .inputdemoIcons .inputIconDemo {
+                            min-height: 48px;
+                        }
+                        
+                        .inputdemoIcons md-input-container:not(.md-input-invalid)>md-icon.email {
+                            color: green;
+                        }
+                        
+                        .inputdemoIcons md-input-container:not(.md-input-invalid)>md-icon.name {
+                            color: dodgerblue;
+                        }
+                        
+                        .inputdemoIcons md-input-container.md-input-invalid>md-icon.email,
+                        .inputdemoIcons md-input-container.md-input-invalid>md-icon.name {
+                            color: red;
+                        }
+                    </style>
+                </div>
+                <div class="w3-container w3-row-padding w3-border-top w3-padding-16 w3-light-grey">
+                    <input class="w3-button w3-green" type="submit" value="שלח הודעה">
+                    <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">ביטול</button>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- LAST UPDATE FROM HADAS NEED TO CHECK IT LATER-->
+<!--<div class="w3-top">-->
+<!--<div class="w3-bar w3-white w3-card-2" id="myNavbar">-->
+<!--&lt;!&ndash; Right-sided navbar links &ndash;&gt;-->
+<!--<div class="w3-right w3-hide-small">-->
+<!--<img src="images/the-renter-logo.png" class="logo" height="50px" />-->
+<!--<a href="" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button w3-hover-lime" >צור קשר</a>-->
+<!--<a ui-sref="rentalSearch" class="w3-bar-item w3-button w3-hover-lime">מאגר השכירות</a>-->
+<!--<a ui-sref="checklist" class="w3-bar-item w3-button w3-hover-lime">צ'ק ליסט</a>-->
+<!--<a ui-sref="blog" class="w3-bar-item w3-button w3-hover-lime">מאמרים</a>-->
+<!--<a ui-sref="about" class="w3-bar-item w3-button w3-hover-lime">אודות</a>-->
+<!--<a ui-sref="home" class="w3-bar-item w3-button w3-hover-lime">דף הבית</a>-->
+<!--</div>-->
+<!--<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">-->
+<!--<i class="fa fa-bars"></i>-->
+<!--</a>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Sidebar on small screens when clicking the menu icon &ndash;&gt;-->
+<!--<nav class="w3-sidebar w3-bar-block w3-white w3-card-2 w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">-->
+<!--<a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>-->
+<!--<a ui-sref="home" onclick="w3_close()" class="w3-bar-item w3-button">דף הבית</a>-->
+<!--<a ui-sref="about" onclick="w3_close()" class="w3-bar-item w3-button">אודות</a>-->
+<!--<a ui-sref="blog" onclick="w3_close()" class="w3-bar-item w3-button">מאמרים</a>-->
+<!--<a ui-sref="checklist" onclick="w3_close()" class="w3-bar-item w3-button">צ'קליסט</a>-->
+<!--<a ui-sref="rentalSearch" onclick="w3_close()" class="w3-bar-item w3-button">מאגר השכירות</a>-->
+<!--<a href="" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button w3-hover-lime" >צור קשר</a>-->
+<!--</nav>-->
