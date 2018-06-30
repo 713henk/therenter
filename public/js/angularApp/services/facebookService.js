@@ -14,12 +14,9 @@ angular.module('therenter')
                 mobile_iframe: true,
                 href: 'https://www.therenter.co.il'
             }, function(response){
-                console.log('received response');
                 if (response && !response.error_message) {
-                    console.log('ALL GOOD RESOLVING');
                     deferred.resolve(response);
                 } else {
-                    console.log('ERROR OCCURED REJECTING - ' + JSON.stringify(response));
                     deferred.reject('Error occured');
                 }
             });
@@ -40,7 +37,6 @@ angular.module('therenter')
         logout: function(){
             var deferred = $q.defer();
             Facebook.logout(function(response) {
-                console.log('IN FACEBOOK SERVICE LOGOUT');
                 if (!response || response.error) {
                     deferred.reject('Error occured');
                 } else {
@@ -81,7 +77,6 @@ angular.module('therenter')
                 // get posts form backend
                 $http.post('/api/facebookusers/create', user)
                     .then(function (result) {
-                        //console.log('result.data ' + JSON.stringify(result.data));
                         // save fetched posts to the local variable
                         createdUser = result.data;
                         // resolve the deferred

@@ -11,22 +11,10 @@
         .controller('ChecklistController', ChecklistController);
 
     function ChecklistController($scope, $rootScope, checklistService, $timeout, $q, $log, $mdDialog, $localStorage, $sessionStorage, $mdToast, anchorSmoothScroll, $location) {
-        console.log('IS THERE A ROOT USER: ' + $rootScope.user.isLoggedIn());
-        // var firstName="";
-        // var lastName = "";
-        // var gender = "";
-        // var userID = "";
         $scope.selectedAnswers = null;
-        // Initialise form submitted state
         $scope.checklistformSubmitted = false;
         $scope.searchformSubmitted = false;
         $scope.init = function(ev) {
-            // $timeout(function(){
-            //	if (!$rootScope.user.isLoggedIn()) {
-            //		console.log('SIGN UP DIALOG ON CHECKLIST PAGE IF NO USER');
-            //		$scope.showAdvanced(ev, 'signin');
-            //	}
-            // }, 30000);
         };
         $scope.isWaitingForm = false;
         $scope.searchAddress = {
@@ -54,14 +42,11 @@
         $scope.leaveDialogShown = false;
         $scope.createQuestionsList = function() {
             $scope.questionsList = [];
-            //	console.log("Number of questions received: " + $scope.allQuestions.length);
             for (var questionIndex = 0; questionIndex < $scope.allQuestions.length; questionIndex++) {
                 $scope.answers = [];
                 $scope.selectedAnswers.push({ question: $scope.allQuestions[questionIndex], answers: $scope.allQuestions[questionIndex].answers, checked: [] });
-                //	console.log("Question: " + $scope.allQuestions[questionIndex].question);
                 for (var answers_index = 0; answers_index < $scope.allQuestions[questionIndex].answers.length; answers_index++) {
                     $scope.answers.push({
-                        //	checked: false,
                         answer: $scope.allQuestions[questionIndex].answers[answers_index]
                     });
                 }
@@ -72,7 +57,6 @@
         $scope.submitChecklistForm = function(ev) {
             if (!$rootScope.user.isLoggedIn()) {
                 console.log('AN ERROR OCCURED THERE IS SUPPOSE TO BE A USER PRESENT WHEN SEEING THE CHECKLIST');
-                //	$scope.showAdvanced(ev, 'signin');
             } else {
                 if ($scope.checklistForm.$valid) {
                     $scope.isWaitingForm = true;
@@ -86,7 +70,6 @@
                     $scope.parsedSelected = [];
                     for (var indexSelected = 0; indexSelected < $scope.selectedAnswers.length; indexSelected++) {
                         var selectedToParse = $scope.selectedAnswers[indexSelected];
-                        console.log(JSON.stringify(selectedToParse));
                         if (selectedToParse.checked[0]) {
                             var parsedAnswer = selectedToParse.checked[0].answer;
                         } else {
@@ -112,10 +95,8 @@
                         answers: $scope.parsedSelected
                     };
                     checklistService.createChecklistEntry($scope.entryToCreate).then(function(createdEntry) {
-                        console.log(createdEntry);
                         $scope.createdEntry = createdEntry;
                         $scope.parsedForShare = angular.copy($scope.parsedSelected);
-                        console.log('created entry at entry - ' + $scope.createdEntry);
                         $scope.resetForm();
                         $scope.isWaitingForm = false;
                         $scope.showAdvanced(ev, 'checklist');
@@ -143,7 +124,6 @@
         };
 
         $scope.collapseAllCategories = function(category, index) {
-            console.log('INDEX = ' + JSON.stringify(index));
             for (var i in $scope.categories) {
                 if ($scope.categories.hasOwnProperty(i)) {
                     if ($scope.categories[i] != category) {
@@ -152,8 +132,6 @@
                 }
             }
             category.expanded = !category.expanded;
-            console.log('INDEX = ' + index);
-            console.log('CATEGORY = ' + JSON.stringify($scope.categories[index]));
             $scope.gotoChecklistElement(index);
         };
         $scope.collapseAllQuestions = function(receivedQuestion, category) {
@@ -178,17 +156,6 @@
             $log.warn('COLLAPSING SAME QUESTION - DEPENDING ON VALUE - ' + receivedQuestion.expanded);
             receivedQuestion.expanded = !receivedQuestion.expanded;
             $log.warn('COLLAPSED SAME QUESTION - DEPENDING ON VALUE - ' + receivedQuestion.expanded);
-
-            //for(var i in $scope.categories[index].questions) {
-            //	console.log('loop on i = ' + i);
-            //	if ($scope.categories[index].questions.hasOwnProperty(i)) {
-            //		if($scope.categories[index].questions[i].question != question.question) {
-            //			console.log('NOT THE DESIRED QUESTION - EXPAND FALSE');
-            //			$scope.categories[index].questions[i].expanded = false;
-            //		}
-            //	}
-            //}
-            //question.expanded = !question.expanded;
         };
         $scope.sync = function(bool, answer, question) {
             $log.warn('SYNC START');
@@ -246,6 +213,32 @@
                 $scope.selected.length !== $scope.items.length);
         };
 
+        $scope.getMyChecklists = function() {
+            checklistService.getMyChecklists($rootScope.user.isLoggedIn().userID).then(function(result) {
+                $scope.isWaitingForm = false;
+                $scope.checklistResult = [];
+                if (result.length === 1) {
+                    $scope.checklistResult = angular.copy(result);
+                    $scope.checklistResult.map(function(entry) {
+                        entry.parsedAnswers.map(function(question) {
+                            if (question.answer === "לא ניתן מענה על שאלה זו") {
+                                question.answer = "אין מידע";
+                            }
+                        })
+                    })
+                } else {
+                    $scope.checklistResult = angular.copy(result);
+                    $scope.checklistResult.map(function(entry) {
+                        entry.parsedAnswers.map(function(question) {
+                            if (question.answer === "לא ניתן מענה על שאלה זו") {
+                                question.answer = "אין מידע";
+                            }
+                        })
+                    })
+                }
+
+            });
+        };
 
         $scope.searchRentalForm = function(event) {
             if ($scope.searchForm.$valid) {
@@ -256,6 +249,7 @@
                     $scope.selectedRentalCity.display;
                 checklistService.searchAddress($scope.searchAddress).then(function(result) {
                     $scope.isWaitingForm = false;
+                    $scope.checklistResult = [];
                     if (result.length === 0) {
                         $scope.checklistResult = [{
                             address: $scope.searchAddress,
@@ -265,7 +259,6 @@
                             }]
                         }]
                     } else if (result.length === 1) {
-                        $scope.checklistResult = [];
                         $scope.checklistResult = angular.copy(result);
                         $scope.checklistResult.map(function(entry) {
                             entry.parsedAnswers.map(function(question) {
@@ -275,9 +268,6 @@
                             })
                         })
                     } else {
-                        console.log('list of options');
-                        console.log(result.length);
-                        console.log(result);
                         $scope.checklistResult = angular.copy(result);
                         $scope.checklistResult.map(function(entry) {
                             entry.parsedAnswers.map(function(question) {
@@ -297,17 +287,11 @@
         };
         $scope.gotoElement = function(eID) {
             if ($(window).width() < 600) {
-                console.log('EID = ' + eID);
-                // set the location.hash to the id of
-                // the element you wish to scroll to.
                 $location.hash(eID);
-                // call $anchorScroll()
                 anchorSmoothScroll.scrollTo(eID);
             } else {
                 if (eID === "formButtons") {
-                    console.log('scrolling to rental Search Response');
                     $location.hash(eID);
-                    // call $anchorScroll()
                     anchorSmoothScroll.scrollTo(eID);
                 }
                 console.log('More than 600 - no scroll needed for form inputs');
@@ -315,14 +299,12 @@
             }
         };
         $scope.gotoChecklistElement = function(index) {
-            console.log('INDEX = ' + JSON.stringify(index));
             var tempID;
             if (index === 0) {
                 tempID = 'questions';
             } else {
                 tempID = 'question-' + (index - 1);
             }
-            console.log('EID = ' + tempID);
             // set the location.hash to the id of
             // the element you wish to scroll to.
             $location.hash(tempID);
@@ -340,15 +322,12 @@
             };
 
             $scope.answer = function(answer) {
-                console.log('created entry at answer function in dialog controller - ' + $scope.createdEntry.post.parsedAddress);
-                console.log('answers - ' + JSON.stringify($scope.parsedForShare));
                 var quote = $scope.createdEntry.post.parsedAddress + "\n";
                 $scope.parsedForShare.map(function(question) {
                     if (question.answer !== "אין מידע") {
                         quote += question.parsed_question + " : " + question.answer + "\n";
                     }
                 });
-                console.log('QUOTE - ' + quote);
                 $rootScope.facebook.share(quote);
                 $mdDialog.hide(answer);
             };
@@ -441,7 +420,6 @@
          */
 
         function querySearchCities(query) {
-            // console.log('scope cities: ' + JSON.stringify($scope.cities));
             var results = query ? $scope.cities.filter(createFilterFor(query)) : $scope.cities,
                 deferred;
             if ($scope.simulateQuery) {
@@ -520,10 +498,8 @@
                 } else {
                     $scope.checklistAddress.city = city.display;
                     $scope.selectedChecklistCity = city;
-                    console.log('SELECTED CHANGE CHECKLIST CITY - ' + JSON.stringify($scope.selectedChecklistCity));
                     $log.info('CHECKLIST City changed to ' + JSON.stringify(city, 'checklist'));
                     $log.info('SELECTED CHECKLIST City changed to ' + JSON.stringify($scope.selectedChecklistCity));
-
                     $log.info('CHECKLIST LOADING ' + city.display + ' STREETS');
                     $scope.checklistStreets = loadCityStreets(city.display, 'checklist');
                 }
@@ -584,11 +560,6 @@
                         for (var index = 0; index < $scope.selectedAnswers.length; index++) {
                             $log.warn('QUESTION NUMBER - ' + (index + 1) + " - " + JSON.stringify($scope.selectedAnswers[index].question.question));
                         }
-                        //console.log(JSON.stringify(allQuestions));
-                        //console.log(JSON.stringify($scope.allQuestions));
-                        //console.log("CALLING CREATE QUESTION LIST");
-                        //$scope.createQuestionsList();
-                        //console.log("END CREATE QUESTION LIST");
                     });
                 } else {
                     $log.warn('SELECTED ANSWERS ARRAY FOR SYNC WAS ALREADY CREATED - ' + $scope.selectedAnswers.length + " QUESTIONS FOUND");
@@ -603,14 +574,11 @@
                 $log.info('LOADING CITIES');
                 checklistService.getCitiesList().then(function(resultCitiesList) {
                     $scope.cities = resultCitiesList.map(function(city) {
-                        //console.log(city);
                         return {
-                            //value: city.toLowerCase(),
                             value: city.value,
                             display: city.display
                         };
                     });
-                    //console.log("LOADED CITIES: " + JSON.stringify($scope.cities));
                 });
             })
         };
@@ -618,7 +586,6 @@
          * Build `streets` list of key/value pairs
          */
         function loadCityStreets(city, source) {
-            //console.log(city + " " + source);
             var cityStreetsToGet = {};
             if (city === "") {
                 cityStreetsToGet = {
@@ -626,38 +593,27 @@
                 };
             } else {
                 if (source === 'rental') {
-                    console.log('selected rental - ' + JSON.stringify($scope.selectedRentalCity));
                     cityStreetsToGet = $scope.selectedRentalCity;
                 } else if (source === 'checklist') {
-                    console.log('selected checklist - ' + JSON.stringify($scope.selectedChecklistCity));
                     cityStreetsToGet = $scope.selectedChecklistCity;
                 }
             }
             if (cityStreetsToGet) {
-                console.log('cityStreetsToGet - ' + JSON.stringify(cityStreetsToGet));
                 checklistService.getStreetsByCity(JSON.stringify(cityStreetsToGet.display)).then(function(resultStreetsList) {
                     if (source === 'rental') {
-                        console.log('GETTING RENTAL CITY STREETS');
                         $scope.rentalStreets = resultStreetsList.map(function(street) {
-                            //console.log(street);
                             return {
-                                //value: city.toLowerCase(),
                                 value: street.value,
                                 display: street.display
                             };
                         });
-                        //console.log("LOADED " + cityStreetsToGet + " STREETS: " + JSON.stringify($scope.rentalStreets));
                     } else if (source === 'checklist') {
-                        console.log('GETTING CHECKLIST CITY STREETS');
                         $scope.checklistStreets = resultStreetsList.map(function(street) {
-                            //console.log(street);
                             return {
-                                //value: city.toLowerCase(),
                                 value: street.value,
                                 display: street.display
                             };
                         });
-                        //console.log("LOADED " + cityStreetsToGet + " STREETS: " + JSON.stringify($scope.checklistStreets));
                     }
                     $scope.isDisabledStreets = false;
                 });
@@ -668,7 +624,6 @@
          * Create filter function for a query string
          */
         function createFilterFor(query) {
-            console.log(query);
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(item) {
@@ -678,7 +633,6 @@
 
         }
         // $scope.$watch('checklistForm.$valid', function () {
-        // 	console.log("Checking Form Validity: "+$scope.checklistForm.$valid);
         // 	//if ($scope.checklistForm.$valid && $scope.selectedStreet) {
         // 	//	var message = "הכנסת כתובת תקינה, הצ'קליסט מוכן להזנה.";
         // 	//	var toast = $mdToast.simple()

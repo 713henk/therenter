@@ -22,10 +22,8 @@
 			 * IntentLogin
 			 */
 			vm.IntentLogin = function() {
-				console.log('INTENT LOGIN');
 				var tmpUser = $rootScope.user.isLoggedIn();
 				if (!tmpUser) {
-					console.log('NO USER LOGGED IN - TRYING TO LOG IN');
 					var user_to_set = {};
 					$rootScope.facebook.login().then(function(loginReponse){
 						if (loginReponse.authResponse) {
@@ -38,7 +36,6 @@
 								user_to_set.email = userInfo.email;
 								$rootScope.user.setUser(user_to_set);
 								$rootScope.facebook.createFacebookUser(user_to_set).then(function(createdResponse){
-									console.log('CREATE FACEBOOK USER RESPONSE - ' + createdResponse);
 								});
 							});
 						} else {
@@ -58,20 +55,6 @@
 				$scope.cancel = function() {
 					$mdDialog.cancel();
 				};
-
-				//$scope.answer = function(answer) {
-				//	console.log('created entry at answer function in dialog controller - '+  $scope.createdEntry.post.parsedAddress);
-				//	console.log('answers - ' + JSON.stringify($scope.parsedForShare));
-				//	var quote = $scope.createdEntry.post.parsedAddress + "\n";
-				//	$scope.parsedForShare.map(function(question) {
-				//		if (question.answer !== "אין מידע") {
-				//			quote += question.parsed_question  + " : " + question.answer + "\n";
-				//		}
-				//	});
-				//	console.log('QUOTE - ' + quote);
-				//	$rootScope.facebook.share(quote);
-				//	$mdDialog.hide(answer);
-				//};
 			}
 
 			vm.showAdvanced = function(ev, source) {

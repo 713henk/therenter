@@ -12,13 +12,7 @@ var QuestionCategory = keystone.list('QuestionCategory');
  */
 exports.list = function(req, res) {
 	Question.model.find().sort('sortOrder').exec(function(err, items) {
-		console.log(items);
 		if (err) return res.status(400).send(err);
-
-		// res.apiResponse({
-		//   posts: items
-		// });
-
 		res.send(items);
 
 	});

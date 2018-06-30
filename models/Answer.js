@@ -28,7 +28,6 @@ Answer.schema.pre('save', function(next){
 	var Question = keystone.list('Question');
 	var temp = this;
 	Question.model.findOne().where('_id', temp.question).exec(function(err, item) {
-		console.log(item);
 		if(err) 
 			console.log(err);
 		else

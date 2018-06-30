@@ -13,6 +13,7 @@
                 <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-lime" ng-show="user.isLoggedIn()" ng-click="vm.logout()">התנתק</a>
                 <!--<a href="" ng-if="$rootScope.user.isLoggedIn()" class="w3-bar-item w3-border-bottom w3-button w3-hover-lime">התנתק</a>-->
                 <a href="" onclick="document.getElementById('id01').style.display='block'" class="w3-bar-item w3-button w3-hover-lime">צור קשר</a>
+                <a ui-sref="myChecklists" class="w3-bar-item w3-button w3-hover-lime" ng-if="user.isLoggedIn()">הצ'קליסטים שלי</a> <!-- HK new --> 
                 <a ui-sref="rentalSearch" class="w3-bar-item w3-button w3-hover-lime">צפה בצ'ק ליסט</a>
                 <a ui-sref="checklist" class="w3-bar-item w3-button w3-hover-lime">מילוי צ'ק ליסט</a>
                 <a ui-sref="blog" class="w3-bar-item w3-button w3-hover-lime">מאמרים</a>

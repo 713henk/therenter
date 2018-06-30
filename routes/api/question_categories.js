@@ -24,7 +24,6 @@ exports.list = function(req, res) {
  */
 exports.get = function(req, res) {
 	var parsedName = decode(req.params.name);
-	console.log(parsedName);
 	QuestionCategory.model.findOne().where('name', parsedName).exec(function(err, item) {
 
 		if (err) return res.apiError('database error', err);

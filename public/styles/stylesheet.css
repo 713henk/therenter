@@ -113,7 +113,7 @@ html {
 
 #rentalSearch_head {
     background-position: center;
-    background-image: url("http://www.lifeofpix.com/wp-content/uploads/2016/12/img-4224-1.jpg");
+    background-image: url("http://www.lifeofpix.com/wp-content/uploads/2016/12/img-4224-1.jpg"); 
 }
 
 #search-ans .tb {
@@ -125,6 +125,12 @@ html {
     background-color: initial;
 }
 
+
+/*------------------------------------------------------my-checklists----------------------------------------------------*/
+
+#myChecklists_head {
+    background-image: url("../images/young-man-napping-on-white-sofa-in-the-office-picjumbo-com.jpg");
+}
 
 /*-------------------------------------------------------articles-----------------------------------------------------*/
 

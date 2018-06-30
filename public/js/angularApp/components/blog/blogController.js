@@ -16,44 +16,25 @@
 		$scope.loadArticles = function() {
 			blogService.getAllArticles().then(function (allArticles){
 				$scope.cards = allArticles;
-				console.log($scope.cards);
 			})
 		};
 
 		$scope.showAdvanced = function(ev, id) {
 			$scope.id = id;
 
-			// get the article
-			//blogService.getArticleById($scope.id).then(function (resultArticle){
-			//	if (resultArticle)
-			//		console.log(reultArticle);
-			//	else
-			//		console.log('NO ARTICLE RECEIVED');
-			//})
-			//get the article hard coded
-			console.log('RECEIVED ID: ' + $scope.id);
 			$scope.article = getArticleByID($scope.id);
-			console.log('RECEIVED ARTICLE = ' + JSON.stringify($scope.article));
-
 			//helper function to get the article hard coded
 			function getArticleByID(id) {
-				console.log('SEARCHING FOR ARTICLE WITH ID: ' + id);
 				var found = false;
 				var result = null;
 				var articleId = Number(id);
 				for (var i=0; i<$scope.cards.length && !found; i++){
-					console.log('i = ' + i);
-					console.log('current card = ' + JSON.stringify($scope.cards[i]));
-					console.log('current id = ' + $scope.cards[i].id);
-					console.log($scope.cards[i].id === articleId);
 					if ($scope.cards[i].id === articleId) {
 						found = true;
 						result = $scope.cards[i];
-						console.log('found article - ' + JSON.stringify(result));
 					}
 				}
 				if (!found)
-					console.log('NO ARTICLE FOUND WITH ID = ' + id);
 				return result;
 
 			}

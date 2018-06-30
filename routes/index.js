@@ -51,8 +51,11 @@ exports = module.exports = function (app) {
 	app.get('/api/questions/list', [keystone.middleware.api, keystone.middleware.cors], routes.api.questions.list);
 	app.get('/api/questions/bycategory', [keystone.middleware.api, keystone.middleware.cors], routes.api.questions.getAllByCategory);
 	app.all('/api/checklistentries/create', [keystone.middleware.api,keystone.middleware.cors], routes.api.checklistentries.create);
-	//app.get('/api/checklistentries/:id', [keystone.middleware.api, keystone.middleware.cors], routes.api.checklistentries.get);
 	app.get('/api/checklistentries/byaddress',[keystone.middleware.api, keystone.middleware.cors], routes.api.checklistentries.getByAddress);
+	app.get('/api/checklistentries/byuser',[keystone.middleware.api, keystone.middleware.cors], routes.api.checklistentries.getByUser);
+
+
+
 	app.all('/api/answer/create', [keystone.middleware.api,keystone.middleware.cors], routes.api.answers.create);
 	app.get('/api/answer/:id', [keystone.middleware.api, keystone.middleware.cors], routes.api.answers.get);
 	app.get('/api/streets/bycity/:city', [keystone.middleware.api, keystone.middleware.cors], routes.api.streets.getByCity);
@@ -64,12 +67,7 @@ exports = module.exports = function (app) {
 	app.get('/api/question-categories/:name',[keystone.middleware.api, keystone.middleware.cors], routes.api.question_categories.get );
 	app.get('/api/questions-by-category/:name',[keystone.middleware.api, keystone.middleware.cors], routes.api.question_by_category.list );
 
-	//app.get('/api/cities/:id', [keystone.middleware.api, keystone.middleware.cors], routes.api.cities.get);
-	//app.get('/api/checklistentry/:address', [keystone.middleware.api, keystone.middleware.cors], routes.api.checklistentries.getByAddress);
-	//app.get('/api/checklistentry/:fbuserid', [keystone.middleware.api, keystone.middleware.cors], routes.api.checklistentries.getByFbUserId);
-	
-
-	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
+		// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
 
 };

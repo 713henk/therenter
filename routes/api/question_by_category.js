@@ -12,9 +12,7 @@ var QuestionCategory = keystone.list('QuestionCategory');
  */
 exports.list = function(req, res) {
 	var parsedName = decode(req.params.name);
-	console.log(parsedName);
 	QuestionCategory.model.findOne().where('name', parsedName).exec(function(err, item) {
-		console.log(item);
 		if (err) return res.apiError('database error', err);
 		if (!item) return res.apiError('not found');
 

@@ -56,7 +56,6 @@
 
             function elmYPosition(eID) {
                 var elm = document.getElementById(eID);
-                console.log('eid = ' + eID);
                 var y = elm.offsetTop;
                 var node = elm;
                 while (node.offsetParent && node.offsetParent != document.body) {

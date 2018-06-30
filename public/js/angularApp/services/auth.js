@@ -41,7 +41,6 @@
 //                            $rootScope.user.setUser(user_to_set);
 //                        });
 //                    } else {
-//                        console.log('ERROR GETTING AUTH RESPONSE ON CHANGE - AUTH SERVICE');
 //                    }
 //                }
 //                else {

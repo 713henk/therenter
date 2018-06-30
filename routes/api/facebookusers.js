@@ -51,7 +51,6 @@ exports.get = function(req, res) {
  * Create a Post
  */
 exports.create = function(req, res) {
-	console.log(req.body);
 	FacebookUser.model.findOne().where('userID', req.body.userID).exec(function(err, user) {
 		if (err) return res.status(400).send(err);
 		if (user) return res.send("fbuser exists.");
