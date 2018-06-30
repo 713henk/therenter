@@ -2,9 +2,6 @@
     <span class="titles w3-padding-large w3-black w3-xlarge w3-wide">הצ'קליסטים שלי</span>
 </header>
 <br/>
-
-
-
 <div ng-if="user.isLoggedIn()" ng-init="getMyChecklists()" class="w3-container" id="myChecklists" name="myChecklists" dir="rtl"  ng-controller="ChecklistController as vm" ng-cloak>
     <div id="searchContent">
         <div ng-repeat="checklistEntry in checklistResult">
@@ -109,106 +106,6 @@
                 </md-content>
         </div>
     </div>
-
-        <!-- <div id="searchContent">
-                <div ng-show="checklistResult" ng-repeat="checklistEntry in checklistResult">            
-                    <md-content flex layout-padding style="padding: 30px 10px;">
-                        <style scoped>
-                            .md-accordion .expandCollapse {
-                                width: 30px;
-                                height: 30px;
-                                position: relative;
-                                font-size: 20px;
-                                font-weight: bold;
-                                cursor: pointer;
-                                color: #fff;
-                                display: block;
-                                margin-top: -2px;
-                                margin-left: -2px;
-                                overflow: hidden;
-                            }
-                            
-                            .md-accordion .expandCollapse:active {
-                                border: 0px;
-                            }
-                            
-                            .md-accordion .expandCollapse:before,
-                            .md-accordion .expandCollapse:after {
-                                width: 30px;
-                                height: 30px;
-                                display: block;
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                line-height: 32px;
-                                text-align: center;
-                                -webkit-transition: .3s all ease-out;
-                                transition: .3s all ease-out;
-                            }
-                            
-                            .md-accordion .expandCollapse:before {
-                                opacity: 1;
-                                -webkit-transform: rotate(0deg);
-                                transform: rotate(0deg);
-                                content: "|";
-                                margin-top: -3px;
-                            }
-                            
-                            .md-accordion .expandCollapse:after {
-                                opacity: 1;
-                                -webkit-transform: rotate(-90deg);
-                                transform: rotate(-90deg);
-                                content: "|";
-                                margin-left: -3px;
-                            }
-                            
-                            .md-accordion .active:before {
-                                opacity: 1;
-                                -webkit-transform: rotate(90deg);
-                                transform: rotate(90deg);
-                                margin-left: 3px;
-                                margin-top: 0px;
-                            }
-                            
-                            .md-accordion .dataContent {
-                                background: #F2F2F2;
-                                height: 0px;
-                                overflow: hidden;
-                                -webkit-transition: .3s all ease-out;
-                                transition: .3s all ease-out;
-                            }
-                            
-                            .md-accordion .activeContent {
-                                height: auto;
-                                padding: 20px;
-                                display: block;
-                            }
-                            
-                            .md-accordion md-toolbar {
-                                cursor: pointer;
-                                position: inherit;
-                                border-bottom: 1px solid rgb(63, 107, 181);
-                                margin-bottom: 3px;
-                            }
-                        </style>
-                        <md-content id="search_table">
-                            <table>
-                                <tr ng-repeat="questions in checklistEntry.parsedAnswers" id="search-ans">
-                                    <td ng-if="questions.answer!=='אין מידע'" ng-show="questions.question!==0"> <i class="fa fa-asterisk"></i> &nbsp&nbsp<b> {{ questions.question }}: </b></td>
-                                    <td ng-show="questions.question===0"></td>
-                                    <td ng-if="questions.answer!=='אין מידע'"> <b>{{ questions.answer }} </b></td>
-                                </tr>
-                                <tr ng-show="questions.question===0">
-                                    <td>
-                                        <i class="fa fa-asterisk"></i>><b> {{ questions.answer }} </b>
-                                    </td>
-                                </tr>
-                            </table>
-                        </md-content>
-                    </md-content>
-            
-                </div>
-        </div> -->
 </div>
 
 
