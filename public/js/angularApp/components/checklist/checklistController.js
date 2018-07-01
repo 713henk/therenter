@@ -628,23 +628,8 @@
 
             return function filterFn(item) {
                 return (item.value.indexOf(lowercaseQuery) !== -1);
-                //return (item.value.indexOf(lowercaseQuery) !== -1);
             };
 
         }
-        // $scope.$watch('checklistForm.$valid', function () {
-        // 	//if ($scope.checklistForm.$valid && $scope.selectedStreet) {
-        // 	//	var message = "הכנסת כתובת תקינה, הצ'קליסט מוכן להזנה.";
-        // 	//	var toast = $mdToast.simple()
-        // 	//		.textContent(message);
-        // 	//	$mdToast.show(
-        // 	//		toast
-        // 	//			.position("bottom end")
-        // 	//			.hideDelay(3000)
-        // 	//	);
-        // 	//	//$timeout(function() { document.getElementById("questions").focus(); }, 500);
-
-        // 	//}
-        // });
     }
 })();
